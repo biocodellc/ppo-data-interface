@@ -35,13 +35,13 @@
                 var z = this._map.getBoundsZoom([[90, -180], [-90, 180]], true);
                 this._map.setZoom(z);
 
-                this._mapTiles = L.tileLayer('https://api.mapbox.com/v4/mapbox.outdoors/{z}/{x}/{y}.png?access_token={access_token}',
-                    {access_token: MAPBOX_TOKEN});
-
-                this._mapTiles.addTo(this._map);
+                //this._mapTiles = L.tileLayer('https://api.mapbox.com/v4/mapbox.outdoors/{z}/{x}/{y}.png?access_token={access_token}',
+                //    {access_token: MAPBOX_TOKEN});
+                //this._mapTiles.addTo(this._map);
 
                 this._satelliteTiles = L.tileLayer('https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.png?access_token={access_token}',
                     {access_token: MAPBOX_TOKEN});
+                this._satelliteTiles.addTo(this._map);
 
                 this._clusterLayer = L.markerClusterGroup({chunkedLoading: true, maxClusterRadius: 40});
             },

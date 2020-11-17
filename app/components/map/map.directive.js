@@ -50,16 +50,17 @@
 
         function toggleMapView(tiles) {
             vm.tiles = tiles;
-            if (tiles === 'map') {
-                vm.map.mapView();
-            } else if (tiles === 'sat') {
-                vm.map.satelliteView();
+            vm.map.satelliteView();
+            //if (tiles === 'map') {
+            //    vm.map.mapView();
+            //} else if (tiles === 'sat') {
+            //    vm.map.satelliteView();
             //} else if (tiles === 'usgs') {
              //   vm.map.usgsView();
             //}
-            } else if (tiles === 'esriTopo') {
-               vm.map.esriTopoView();
-            }
+            //} else if (tiles === 'esriTopo') {
+            //   vm.map.esriTopoView();
+           // }
         }
     }
 
