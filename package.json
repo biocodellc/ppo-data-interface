@@ -1,47 +1,27 @@
 {
-  "name": "angular-seed",
-  "private": true,
-  "version": "0.0.0",
-  "description": "A starter project for AngularJS",
-  "repository": "https://github.com/angular/angular-seed",
-  "license": "MIT",
-  "devDependencies": {
-    "angular-jsdoc": "^1.5.1",
-    "bower": "^1.8.8",
-    "graceful-fs": "^4.2.0",
-    "gulp": "^3.9.1",
-    "gulp-angular-jsdoc": "^0.1.6",
-    "gulp-jsdoc3": "^1.0.1",
-    "gulp-minify-css": "^1.2.4",
-    "gulp-ngdocs": "^0.3.0",
-    "gulp-replace": "^0.6.1",
-    "gulp-uglify": "^3.0.2",
-    "gulp-usemin": "^0.3.29",
-    "http-server": "^0.11.1",
-    "jsdoc": "^3.6.2",
-    "rimraf": "^2.6.3"
-  },
-  "scripts": {
-    "postinstall": "bower install;npm install -g gulp",
-    "update-deps": "npm update",
-    "postupdate-deps": "bower update",
-    "prestart": "npm install",
-    "start": "http-server -a localhost -p 8000 -c-1 ./app",
-    "pretest": "npm install",
-    "test": "karma start karma.conf.js",
-    "test-single-run": "karma start karma.conf.js --single-run",
-    "preupdate-webdriver": "npm install",
-    "update-webdriver": "webdriver-manager update",
-    "preprotractor": "npm run update-webdriver",
-    "protractor": "protractor e2e-tests/protractor.conf.js",
-    "update-index-async": "node -e \"var fs=require('fs'),indexFile='app/index-async.html',loaderFile='app/bower_components/angular-loader/angular-loader.min.js',loaderText=fs.readFileSync(loaderFile,'utf-8').split(/sourceMappingURL=angular-loader.min.js.map/).join('sourceMappingURL=bower_components/angular-loader/angular-loader.min.js.map'),indexText=fs.readFileSync(indexFile,'utf-8').split(/\\/\\/@@NG_LOADER_START@@[\\s\\S]*\\/\\/@@NG_LOADER_END@@/).join('//@@NG_LOADER_START@@\\n'+loaderText+'    //@@NG_LOADER_END@@');fs.writeFileSync(indexFile,indexText);\"",
-    "preinstall": "npx npm-force-resolutions"
-  },
-  "resolutions": {
-    "graceful-fs": "4.2.3"
-  },
+  "name": "futres-data-interface",
+  "version": "1.0.0",
+  "description": "A lightweight interface for visualizing vertebrate traits, drawing on data that has been indexed using the  [https://github.com/futres/fovt-data-pipeline](fovt-data-pipeline).  This interface is written in angularJS, leaflet, and bootstrap and calls data services using the  [https://github.com/biocodellc/ppo-data-server](ppo-data-server).",
+  "main": "gulpfile.js",
   "dependencies": {
-    "angularjs-slider": "^6.7.0",
-    "gulp-shell": "^0.6.5"
-  }
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.3.0",
+    "http-server": "^0.12.3",
+    "rimraf": "^3.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server -a localhost -p 8000 -c-1 ./app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/futres/futres-data-interface.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/futres/futres-data-interface/issues"
+  },
+  "homepage": "https://github.com/futres/futres-data-interface#readme"
 }

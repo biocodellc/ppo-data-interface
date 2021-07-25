@@ -1,92 +1,235 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <base href="/">
-  <title>Global Plant Phenological Data Portal</title>
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- build:css css/site.css -->
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
-  <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css">
-  <link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.css">
-  <link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css">
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="bower_components/jquery-ui/themes/base/jquery-ui.min.css">
-  <link rel="stylesheet" href="bower_components/angularjs-slider/dist/rzslider.min.css">
-  <link rel="stylesheet" href="bower_components/ngModal/dist/ng-modal.css">
-  <link rel="stylesheet" href="customslider.css">
-  <link rel="stylesheet" href="app.css">
-  <link rel="stylesheet" href="select.min.css">
-  <!-- endbuild -->
-  <!-- build:modernizer js/modernizr.js -->
-  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
-  <!-- endbuild -->
-</head>
-<body>
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>Plant Phenology Search</title>
+    <link
+      rel="stylesheet"
+      href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.js"></script>
 
-  <div ng-view class="full-page container-fluid"></div>
+    <script src="lib/elasticsearch.angular.js"></script>
+    <script src="lib/elastic.js"></script>
+    <script src="lib/elasticui.js"></script>
 
-  <script src="bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <style>
+      .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        z-index: 1000;
+        display: block;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: #f5f5f5;
+        border-right: 1px solid #eee;
+      }
+    </style>
+    <script>
+      angular
+        .module("tutorial", ["elasticui", "ngMaterial"])
+        .constant("euiHost", "https://www.plantphenology.org/api/v1/query/") // cluster address
+        .controller("myCtrl", [
+          "$scope",
+          "$http",
+          function ($scope, $http) {
+            $scope.selectedAttributes = [];
+            $scope.disableDownload = true;
+            $scope.clicked = function () {
+              // Construct query string to download service like
+              queryTerms = $scope.indexVM.filters.jsonObjects;
+              queryString = "q=";
+              termCounter = 0;
 
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular-route.min.js"></script>
-  <!-- build:remove -->
-  <script src="bower_components/angular/angular.min.js"></script>
-  <script src="bower_components/angular-route/angular-route.min.js"></script>
-  <!-- endbuild -->
+              if ($scope.indexVM.query) {
+                queryString +=
+                  '+scientificName:"' + $scope.indexVM.query.query() + '"';
+                termCounter++;
+              }
 
-  <script src="bower_components/leaflet/dist/leaflet.js"></script>
-  <script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
-  <script src="bower_components/leaflet-spin/leaflet.spin.js"></script>
-  <script src="bower_components/angular-spinner/dist/angular-spinner.min.js"></script>
+              for (var i = 0; i < queryTerms.length; i++) {
+                var obj = JSON.parse(queryTerms[i]);
 
-  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-  <script src="bower_components/angularjs-slider/dist/rzslider.js"></script>
-  <script src="bower_components/ngModal/dist/ng-modal.js"></script>
-  <!--The following script enables dropdown to work -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
-  <script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.min.js"></script>-->
+                for (var i = 0; i < queryTerms.length; i++) {
+                  var obj = JSON.parse(queryTerms[i]);
+                  for (var key in obj) {
+                    Statement = obj[key];
 
+                    for (var term in obj[key]) {
+                      if (termCounter > 0) {
+                        queryString += "++AND++";
+                      }
+                      value = Statement[term].toString().replace(/\s/g, "+");
+                      queryString += "+" + term + ':"' + value + '"';
+                      termCounter++;
+                    }
+                  }
+                }
+              }
+              if (termCounter > 0) {
+                $scope.message = false;
+                queryStringRootURL =
+                  "https://www.plantphenology.org/api/v1/download/_search?";
+                downloadLink = queryStringRootURL + queryString + "&limit=100000";
+                console.log("downloadLink = " + downloadLink);
+                $scope.loading = true;
 
-  <!-- build:js js/site.js -->
-  <script src="bower_components/spin.js/spin.js"></script>
-  <script src="app.js"></script>
-  <script src="select.min.js"></script>
-  <script src="query/query.module.js"></script>
-  <script src="components/alerts/alert.module.js"></script>
-  <script src="components/map/map.module.js"></script>
-  <script src="components/map/map.js"></script>
-  <script src="components/map/map.directive.js"></script>
-  <script src="components/alerts/alert.js"></script>
-  <script src="directives/showErrors.directive.js"></script>
-  <script src="filters/html.filter.js"></script>
-  <script src="query/query.service.js"></script>
-  <script src="query/queryBuilder.js"></script>
-  <script src="query/query.controller.js"></script>
-  <script src="query/query.routes.js"></script>
-  <script src="query/queryForm.controller.js"></script>
-  <script src="query/queryMap.service.js"></script>
-  <script src="query/queryParams.js"></script>
-  <script src="query/queryResults.js"></script>
-  <script src="query/table/queryTable.controller.js"></script>
-  <script src="query/table/scalyr.js"></script>
-  <script src="query/queryTypesDisplay.filter.js"></script>
-  <script src="query/detail.controller.js"></script>
-  <script src="query/leaflet-omnivore.min.js"></script>
-  <!-- endbuild -->
+                $http({
+                  method: "GET",
+                  url: downloadLink,
+                  keepJson: true,
+                  responseType: "arraybuffer",
+                }).then(
+                  function successCallback(response) {
+                    // here we know to expect a CSV/gzipped file so just name it here
+                    var filename = "ppo.zip";
+                    var contentType = response.headers["content-type"];
+                    var linkElement = document.createElement("a");
+                    try {
+                      var blob = new Blob([response.data], {
+                        type: contentType,
+                      });
+                      var url = window.URL.createObjectURL(blob);
 
-</body>
+                      linkElement.setAttribute("href", url);
+
+                      linkElement.setAttribute("download", filename);
+
+                      var clickEvent = new MouseEvent("click", {
+                        view: window,
+                        bubbles: true,
+                        cancelable: false,
+                      });
+                      linkElement.dispatchEvent(clickEvent);
+                      $scope.loading = false;
+                    } catch (ex) {
+                      console.log(ex);
+                    }
+                  },
+                  function errorCallback(response) {
+                    console.log(response);
+                  }
+                );
+              }
+              if (termCounter == 0) {
+                $scope.message = true;
+              }
+            };
+          },
+        ]);
+    </script>
+  </head>
+
+  <body ng-app="tutorial" ng-controller="myCtrl" eui-index="'ppo'">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-3 sidebar">
+          <h1>FuTRES Search</h1>
+          <div>
+            <button
+              type="submit"
+              ng-click="clicked()"
+              class="btn btn-success"
+              ng-disabled="loading"
+            >
+              Download
+            </button>
+            <div ng-show="loading">
+              <md-progress-circular mode="indeterminate"></md-progress-circular>
+            </div>
+          </div>
+	  <div>NOTE: There is a hard limit of 100,000 limits per download through this web interface.</div>
+          <div ng-show="message">
+            Select at least one filter condition before downloading
+          </div>
+          <div ng-show="loading">
+            There is a hard limit of 100,000 records returned on downloaded results
+	    through this interface.  To retrieve more results please contact the authors.
+	    The download process may take several minutes depending on available
+            bandwidth and number of records requested. The ppo database needs
+            to first package your request and then return the data to your
+            browser. If you encounter issues downloading, try reducing the size
+            of your query.
+          </div>
+
+          <h3>Search any name</h3>
+          <eui-searchbox field="'scientificName'"></eui-searchbox>
+
+          <h3>Traits</h3>
+          <eui-singleselect
+            field="'plantStructurePresenceTypes'"
+            size="500"
+          ></eui-singleselect>
+
+          <h3>Genus</h3>
+          <eui-singleselect field="'genus'" size="10"></eui-singleselect>
+
+          <h3>Basis Of Record</h3>
+          <eui-singleselect field="'basisOfRecord'" size="10"></eui-singleselect>
+
+          <h3>Source</h3>
+          <eui-singleselect
+            field="'source'"
+            size="10"
+          ></eui-singleselect>
+
+          <h3>Results Per Page</h3>
+          <select ng-model="indexVM.pageSize">
+            <option ng-repeat="item in [10, 15, 20, 50, 100]">{{item}}</option>
+          </select>
+
+          <p></p>
+          <i
+            >This site is currently in Beta and may change at any time without
+            warning. Funding support from the the National Science Foundation.
+            Infrastructure support from iDigBio and CyVerse. This site is made
+            available for research purposes and the site developers make no
+            warranty or guarrantee for data contents. Comments can be made by
+            email to jdeck88@gmail.com</i
+          >
+        </div>
+        <div class="col-xs-9 col-xs-offset-3 main">
+          <h1>Results</h1>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">ScientificName</th>
+                <th scope="col">Trait</th>
+                <th scope="col">Year</th>
+                <th scope="col">Genus</th>
+                <th scope="col">Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="doc in indexVM.results.hits.hits">
+                <td>{{doc._source.scientificName}}</td>
+                <td>{{doc._source.plantStructurePresenceTypes}}</td>
+                <td>{{doc._source.year}}</td>
+                <td>{{doc._source.genus}}</td>
+                <td>{{doc._source.source}}</td>
+                <!--<td>
+                            {{if ${doc._source.projectId} == 'Vertnet'}} 'Vertnet'
+                            {{else}} <a href='https://geome-db.org/workbench/project-overview?projectId=${doc._source.projectID}' target=_blank>${doc._source.projectID}</a> 
+                            {{/if}}
+                        </td>-->
+              </tr>
+            </tbody>
+          </table>
+
+          <eui-simple-paging></eui-simple-paging>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
