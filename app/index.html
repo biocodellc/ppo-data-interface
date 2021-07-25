@@ -166,6 +166,12 @@
           <h3>Search any name</h3>
           <eui-searchbox field="'scientificName'"></eui-searchbox>
 
+          <h3>Source</h3>
+          <eui-singleselect
+            field="'source'"
+            size="10"
+          ></eui-singleselect>
+
           <h3>Traits</h3>
           <eui-singleselect
             field="'mapped_traits'"
@@ -177,12 +183,6 @@
 
           <h3>Basis Of Record</h3>
           <eui-singleselect field="'basisOfRecord'" size="10"></eui-singleselect>
-
-          <h3>Source</h3>
-          <eui-singleselect
-            field="'source'"
-            size="10"
-          ></eui-singleselect>
 
           <h3>Results Per Page</h3>
           <select ng-model="indexVM.pageSize">
@@ -205,6 +205,7 @@
             <thead>
               <tr>
                 <th scope="col">ScientificName</th>
+                <th scope="col">eventRemarks</th>
                 <th scope="col">Year</th>
                 <th scope="col">dayOfYear</th>
                 <th scope="col">Genus</th>
@@ -214,6 +215,7 @@
             <tbody>
               <tr ng-repeat="doc in indexVM.results.hits.hits">
                 <td>{{doc._source.scientificName}}</td>
+                <td>{{doc._source.eventRemarks}}</td>
                 <td>{{doc._source.year}}</td>
                 <td>{{doc._source.dayOfYear}}</td>
                 <td>{{doc._source.genus}}</td>
