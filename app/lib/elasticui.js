@@ -749,9 +749,9 @@ var elasticui;
             };
             IndexController.prototype.onResult = function (body, updateOnlyIfCountChanged) {
                 if (updateOnlyIfCountChanged === void 0) { updateOnlyIfCountChanged = false; }
-                if (!updateOnlyIfCountChanged || this.indexVM.results == null || this.indexVM.results.hits.total != body.hits.total) {
+                if (!updateOnlyIfCountChanged || this.indexVM.results == null || this.indexVM.results.hits.hits.total != body.hits.total) {
                     this.indexVM.results = body;
-                    this.indexVM.pageCount = Math.ceil(this.indexVM.results.hits.total / this.indexVM.pageSize);
+                    this.indexVM.pageCount = Math.ceil(this.indexVM.results.hits.hits.total / this.indexVM.pageSize);
                 }
                 this.indexVM.loading = false;
             };
