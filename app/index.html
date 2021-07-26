@@ -80,7 +80,7 @@
               if (termCounter > 0) {
                 $scope.message = false;
                 queryStringRootURL =
-                  "https://www.plantphenology.org/api/v1/download/_search?";
+                  "https://www.plantphenology.org/api/v2/download/_search?";
                 downloadLink = queryStringRootURL + queryString + "&limit=100000";
                 console.log("downloadLink = " + downloadLink);
                 $scope.loading = true;
@@ -184,8 +184,8 @@
             size="500"
           ></eui-singleselect>
 
-          <h3>Genus</h3>
-          <eui-singleselect field="'genus'" size="100"></eui-singleselect>
+          <h3>Genus (top 50 hits)</h3>
+          <eui-singleselect field="'genus'" size="50"></eui-singleselect>
 
           <h3>Results Per Page</h3>
           <select ng-model="indexVM.pageSize">
