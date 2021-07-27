@@ -58,8 +58,6 @@
                 termCounter++;
               }
 
-	      console.log("running query")
-	      console.log(queryTerms)
               for (var i = 0; i < queryTerms.length; i++) {
                 var obj = JSON.parse(queryTerms[i]);
 
@@ -167,6 +165,11 @@
 
           <h3>Search any name</h3>
           <eui-searchbox field="'scientificName'"></eui-searchbox>
+
+	  Min Day of Year
+	  <input type="text" eui-query="ejs.RangeQuery('dayOfYear').gte(200)" ng-model="querystring" eui-enabled="querystring.length" />
+	  Max Day of Year
+	  <input type="text" eui-query="ejs.RangeQuery('dayOfYear').gte(200)" ng-model="querystring" eui-enabled="querystring.length" />
 
           <h3>Source</h3>
           <eui-singleselect
