@@ -49,7 +49,7 @@
 		<div class="col-xs-9">
                     <select ng-options="key as value for (value,key) in queryFormVm.traits"
                         ng-model="queryFormVm.params.traits"
-                           class="form-control input-sm" required >
+                           class="form-control input-sm" >
                         <option value="">-- Select Trait --</option>
                     </select>
                 </div>	
@@ -66,7 +66,7 @@
                 <div class="col-xs-9">
                     <select ng-options="s for s in queryFormVm.genus"
                         ng-model="queryFormVm.params.genus"
-                           class="form-control input-sm" required>
+                           class="form-control input-sm" >
                         <option value="">-- Select Genus --</option>
                     </select>
                 </div>

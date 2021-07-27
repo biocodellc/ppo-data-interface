@@ -74,10 +74,10 @@
                             } else {
                     	        results.size = results.foundElements;
 	             	    	results.totalElements = results.foundElements;
-                                if (results.foundElements > 0) 
-                                	alerts.info(results.foundElements + " results found for " + dataSource)
-                                else
-                                  	alerts.info("No results found for " + dataSource)
+                                //if (results.foundElements > 0) 
+                               // 	alerts.info(results.foundElements + " results found for " + dataSource)
+                                //else
+                                 // 	alerts.info("No results found for " + dataSource)
 			    }
 
 
