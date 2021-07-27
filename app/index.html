@@ -167,8 +167,8 @@
           <eui-searchbox field="'scientificName'"></eui-searchbox>
 
 	  <h3>Day of Year</h3>
-	  Min <input type="text" eui-query="ejs.RangeQuery('dayOfYear').gte("{{minDay}}")" ng-model="minDay" eui-enabled="querystring.length" />
-	  Max <input type="text" eui-query="ejs.RangeQuery('dayOfYear').lte("{{maxDay}}")" ng-model="maxDay" eui-enabled="querystring.length" />
+	  Min <input type="text" eui-query="ejs.RangeQuery('dayOfYear').gte(minDay)" ng-model="minDay" eui-enabled="minDay.length" size="4" />
+	  Max <input type="text" eui-query="ejs.RangeQuery('dayOfYear').lte(maxDay)" ng-model="maxDay" eui-enabled="maxDay.length" size="4" />
 
           <h3>Source</h3>
           <eui-singleselect
