@@ -39,7 +39,7 @@
     <script>
       angular
         .module("tutorial", ["elasticui", "ngMaterial"])
-        .constant("euiHost", "https://www.plantphenology.org/api/v1/query/") // cluster address
+        .constant("euiHost", "https://biscicol.org/api/v1/query/") // cluster address
         .controller("myCtrl", [
           "$scope",
           "$http",
@@ -80,8 +80,8 @@
               if (termCounter > 0) {
                 $scope.message = false;
                 queryStringRootURL =
-                  "https://www.plantphenology.org/api/v3/download/_search?";
-                downloadLink = queryStringRootURL + queryString + "&limit=100000";
+                  "https://biscicol.org/api/v3/download/_search?";
+                downloadLink = queryStringRootURL + queryString + "&limit=500000";
                 console.log("downloadLink = " + downloadLink);
                 $scope.loading = true;
 
@@ -149,12 +149,12 @@
               <md-progress-circular mode="indeterminate"></md-progress-circular>
             </div>
           </div>
-	  <div>NOTE: There is a hard limit of 100,000 limits per download through this web interface.</div>
+	  <div>NOTE: There is a hard limit of 500,000 limits per download through this web interface. See email contact below for downloading more.</div>
           <div ng-show="message">
             Select at least one filter condition before downloading
           </div>
           <div ng-show="loading">
-            There is a hard limit of 100,000 records returned on downloaded results
+            There is a hard limit of 500,000 records returned on downloaded results
 	    through this interface.  To retrieve more results please contact the authors.
 	    The download process may take several minutes depending on available
             bandwidth and number of records requested. The ppo database needs
