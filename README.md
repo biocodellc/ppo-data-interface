@@ -8,6 +8,8 @@ in angularJS, leaflet, and bootstrap and calls data services using the
 (may need to install npm)
 ```
 npm install 
+
+(NOTE: try just running `npm install gulp` if running npm server fails)
 ```
 
 # to run on a local server
