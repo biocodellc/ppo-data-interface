@@ -167,10 +167,10 @@
           <eui-searchbox field="'scientificName'"></eui-searchbox>
 
           <h3>Source</h3>
-          <eui-singleselect
+          <eui-multiselect
             field="'source'"
             size="10"
-          ></eui-singleselect>
+          ></eui-multiselect>
 
           <h3>Presence/Absence</h3>
           <eui-singleselect
@@ -209,6 +209,7 @@
               <tr>
                 <th scope="col">ScientificName</th>
                 <th scope="col">eventRemarks</th>
+                <th scope="col">status</th>
                 <th scope="col">Year</th>
                 <th scope="col">dayOfYear</th>
                 <th scope="col">Genus</th>
@@ -219,6 +220,7 @@
               <tr ng-repeat="doc in indexVM.results.hits.hits">
                 <td>{{doc._source.scientificName}}</td>
                 <td>{{doc._source.eventRemarks}}</td>
+                <td>{{doc._source.status}}</td>
                 <td>{{doc._source.year}}</td>
                 <td>{{doc._source.dayOfYear}}</td>
                 <td>{{doc._source.genus}}</td>
