@@ -58,6 +58,8 @@
                 termCounter++;
               }
 
+	      console.log("running query")
+	      console.log(queryTerms)
               for (var i = 0; i < queryTerms.length; i++) {
                 var obj = JSON.parse(queryTerms[i]);
 
@@ -167,10 +169,10 @@
           <eui-searchbox field="'scientificName'"></eui-searchbox>
 
           <h3>Source</h3>
-          <eui-checklist
+          <eui-singleselect
             field="'source'"
             size="10"
-          ></eui-checklist>
+          ></eui-singleselect>
 
           <h3>Presence/Absence</h3>
           <eui-singleselect
