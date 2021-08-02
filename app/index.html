@@ -154,8 +154,6 @@
             Select at least one filter condition before downloading
           </div>
           <div ng-show="loading">
-            There is a hard limit of 500,000 records returned on downloaded results
-	    through this interface.  To retrieve more results please contact the authors.
 	    The download process may take several minutes depending on available
             bandwidth and number of records requested. The ppo database needs
             to first package your request and then return the data to your
@@ -166,16 +164,21 @@
           <h3>Search any name</h3>
           <eui-searchbox field="'scientificName'"></eui-searchbox>
 
-	  <!--<h3>Day of Year</h3>
+	  <h3>Day of Year</h3>
 	  // These work, sort of ... however, code only allows one query of these types at a time
 	  // Need to research how to have multiple query conditions
 	  Min <input type="text" eui-query="ejs.RangeQuery('dayOfYear').gte(minDay)" ng-model="minDay" eui-enabled="minDay.length" size="4" />
 	  Max <input type="text" eui-query="ejs.RangeQuery('dayOfYear').lte(maxDay)" ng-model="maxDay" eui-enabled="maxDay.length" size="4" />
-	  -->
 
           <h3>Source</h3>
           <eui-singleselect
             field="'source'"
+            size="10"
+          ></eui-singleselect>
+
+          <h3>Sub-Source</h3>
+          <eui-singleselect
+            field="'subSource'"
             size="10"
           ></eui-singleselect>
 
