@@ -235,7 +235,10 @@
                 <td>{{doc._source.year}}</td>
                 <td>{{doc._source.dayOfYear}}</td>
                 <td>{{doc._source.genus}}</td>
-                <td>{{doc._source.source}}</td>
+                <td>
+			<div ng-if="doc._source.occurrenceID"><a href='{{doc._source.occurrenceID}}' target=_blank>{{doc._source.source}}</a></div>
+                	<div ng-if="!doc._source.occurrenceID">{{doc._source.source}}</div>
+		</td>
                 <!--<td>
                             {{if ${doc._source.projectId} == 'Vertnet'}} 'Vertnet'
                             {{else}} <a href='https://geome-db.org/workbench/project-overview?projectId=${doc._source.projectID}' target=_blank>${doc._source.projectID}</a> 
