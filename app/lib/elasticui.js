@@ -675,7 +675,11 @@ var elasticui;
                 if (combinedFilter != null) {
                     request.post_filter(combinedFilter);
                 }
+		// JBD: need to loop this and add multiple queries
+		// can i add multiple queries
                 if (this.indexVM.query != null) {
+		    console.log('QUERY TEST 2...')
+		    console.log(this.indexVM.query);
                     request.query(this.indexVM.query);
                 }
                 else {
@@ -1092,11 +1096,13 @@ var elasticui;
                 var _this = this;
                 this.scope.$watch('query.enabled', function (newVal, oldVal) {
                     if (newVal !== oldVal) {
+	    		console.log("QUERY TEST new old");
                         _this.updateQuery();
                     }
                 });
                 this.scope.$watch('query.query', function (newVal, oldVal) {
                     if (!elasticui.util.EjsTool.equals(oldVal, newVal)) {
+	    		console.log("QUERY TEST query.query");
                         _this.updateQuery();
                     }
                 });
@@ -1110,6 +1116,9 @@ var elasticui;
                     this.scope.indexVM.query = null;
                 }
                 else {
+		    // should this ADD each query... appears to only SET it once.
+		    console.log('QUERY TEST 1...');
+		    console.log(this.scope.query.query);
                     this.scope.indexVM.query = this.scope.query.query;
                 }
             };

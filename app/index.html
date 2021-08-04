@@ -214,7 +214,7 @@
           >
         </div>
         <div class="col-xs-9 col-xs-offset-3 main">
-          <h1>Results</h1>
+          <h1>{{indexVM.results.aggregations.filtered_source_0.doc_count | number : fractionSiz}} Results</h1>
           <table class="table">
             <thead>
               <tr>
