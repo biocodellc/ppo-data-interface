@@ -7,8 +7,8 @@ function defaultTask(cb) {
     cb()
     gulp.src('app/*')    
         .pipe(gulp.dest('public/'))
-    gulp.src('app/lib/*')    
-        .pipe(gulp.dest('public/lib/'))
+    gulp.src('app/trait-viz/lib/*')    
+        .pipe(gulp.dest('public/trait-viz/lib/'))
 }
   
 exports.default = defaultTask
