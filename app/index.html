@@ -39,7 +39,7 @@
     <script>
       angular
         .module("tutorial", ["elasticui", "ngMaterial"])
-        .constant("euiHost", "https://biscicol.org/api/v1/query/") // cluster address
+        .constant("euiHost", "https://biscicol.org/ppo/api/v1/query/") // cluster address
         .controller("myCtrl", [
           "$scope",
           "$http",
@@ -80,7 +80,7 @@
               if (termCounter > 0) {
                 $scope.message = false;
                 queryStringRootURL =
-                  "https://biscicol.org/api/v3/download/_search?";
+                  "https://biscicol.org/ppo/api/v3/download/_search?";
                 downloadLink = queryStringRootURL + queryString + "&limit=100000";
                 console.log("downloadLink = " + downloadLink);
                 $scope.loading = true;
