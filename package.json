@@ -1,15 +1,12 @@
 {
-  "name": "futres-data-interface",
+  "name": "ppo-data-interface",
   "version": "1.0.0",
-  "description": "A lightweight interface for visualizing vertebrate traits, drawing on data that has been indexed using the  [https://github.com/futres/fovt-data-pipeline](fovt-data-pipeline).  This interface is written in angularJS, leaflet, and bootstrap and calls data services using the  [https://github.com/biocodellc/ppo-data-server](ppo-data-server).",
+  "description": "A lightweight interface for visualizing plant traits",
   "main": "gulpfile.js",
   "dependencies": {
-    "gulp": "^4.0.2",
-    "gulp-cli": "^2.3.0",
-    "http-server": "^0.12.3",
-    "rimraf": "^3.0.2"
+    "gulp": "^5.0.0",
+    "http-server": "*"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "http-server -a localhost -p 8000 -c-1 ./app"
@@ -23,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/futres/futres-data-interface/issues"
   },
-  "homepage": "https://github.com/futres/futres-data-interface#readme"
+  "homepage": "https://github.com/futres/futres-data-interface#readme",
+  "keywords": [],
+  "devDependencies": {
+    "del": "^7.1.0",
+    "rimraf": "^5.0.7",
+    "url": "^0.11.3"
+  }
 }

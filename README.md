@@ -9,6 +9,13 @@ The master branch of this repository is hosted on netlify and currently running 
 
 # first time installation steps
 ```
+
+// first ensure you have the correct versions
+$ node -v
+v18.2.0
+$ npm -v
+8.9.0
+
 npm install 
 ```
 

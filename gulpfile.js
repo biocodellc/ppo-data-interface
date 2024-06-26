@@ -1,28 +1,47 @@
-var gulp = require('gulp');
-var rimraf = require('rimraf');
+const gulp = require('gulp');
+const fs = require('fs');
+const path = require('path');
+const { series, src, dest } = gulp;
 
-// Clean task to delete the 'public' directory
-gulp.task('clean', function(cb) {
-    rimraf('./public', cb);
-});
+// Custom clean function using fs and path
+function clean(cb) {
+    const directory = './public';
 
-// Default task to copy files from 'app' to 'public'
+    // Check if directory exists
+    if (fs.existsSync(directory)) {
+        // Recursively remove directory
+        removeDirectory(directory);
+    }
+
+    cb(); // Callback to indicate completion
+}
+
+// Recursive function to remove directory
+function removeDirectory(directory) {
+    fs.readdirSync(directory).forEach((file) => {
+        const filePath = path.join(directory, file);
+        if (fs.lstatSync(filePath).isDirectory()) {
+            removeDirectory(filePath);
+        } else {
+            fs.unlinkSync(filePath);
+        }
+    });
+    fs.rmdirSync(directory);
+}
+
+// Example of other tasks
 function defaultTask(cb) {
-    gulp.src('app/*')
-        .pipe(gulp.dest('public/'))
+    src('app/*')
+        .pipe(dest('public/'))
         .on('end', function() {
-            gulp.src('app/trait-viz/lib/*')
-                .pipe(gulp.dest('public/trait-viz/lib/'))
+            src('app/trait-viz/lib/*')
+                .pipe(dest('public/trait-viz/lib/'))
                 .on('end', cb);
         });
 }
 
-// Export default task
+// Register tasks
+exports.clean = clean;
 exports.default = defaultTask;
-
-// Register default task as a named Gulp task
-gulp.task('default', defaultTask);
-
-// Build task to run 'clean' and then 'defaultTask'
-gulp.task('build', gulp.series('clean', defaultTask));
+exports.build = series(clean, defaultTask);
 
